@@ -99,4 +99,4 @@ The code also builds with the open-source AVRA after three small syntax tweaks. 
 
 ## License
 
-*Add a license of your choice (for example MIT for the firmware and CERN-OHL for the hardware).*
+MIT for the firmware and CERN-OHL for the hardware.
