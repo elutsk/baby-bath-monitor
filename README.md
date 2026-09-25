@@ -4,6 +4,8 @@ A small battery-powered device that watches the water in a baby bath: it measure
 
 I built it when my daughter was born and kept refining it for almost two years afterwards. It is a complete embedded project done end to end: my own schematic and PCB, a hand-assembled board, and firmware written entirely in **AVR assembly**.
 
+Designed in P-CAD 2006, the direct ancestor of Altium Designer, which is what I use now
+
 <p align="center">
   <img src="docs/images/device_top.jpg" width="45%" alt="Final device, top view">
   <img src="docs/images/prototype_front.jpg" width="45%" alt="Prototype board">

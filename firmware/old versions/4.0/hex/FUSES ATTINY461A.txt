@@ -1,0 +1,30 @@
+ATTINY461A !!!
+
+
+OSCCAL		=89
+
+_LOW		=0xE2
+
+CKDIV		=1
+
+CKOUT		=1
+
+SUT		=2
+
+CKSEL		=2
+
+_HIGH		=0xDD
+
+RSTDISBL	=1
+
+DWEN		=1
+
+WDTON		=1
+
+EESAVE		=1
+
+BODLEAVEL	=5
+
+_EXT		=0xFF
+
+SELFPRGEN	=1
