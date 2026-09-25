@@ -35,6 +35,8 @@ The device then runs a self-test of the water-level sensor and shows the result 
 
 If an error is detected, the buzzer sounds and the error code is stored in the water-level alarm setting (see section 3, item **SE**). In this case the water-level alarm is disabled. After the self-test the device switches to normal temperature measurement and display.
 
+> **Note.** The water-level sensor detects water by its electrical conductivity. It works with ordinary tap water but will not detect distilled water or water purified by reverse osmosis.
+
 ## 2. Changing the temperature units
 
 Outside the menu, pressing **+** or **−** toggles the displayed temperature between Celsius and Fahrenheit. Celsius is shown with one decimal place (e.g. `36.6`) below 100 °C; Fahrenheit is shown in whole degrees.

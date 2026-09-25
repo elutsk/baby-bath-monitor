@@ -60,11 +60,11 @@ The three P-MOSFET digit drivers (VT5, VT2, VT6) do more than drive the display.
 | `led_h2` (PB1 low, H2 high) | VT9 switches on VT8, which powers the LM35 from +BAT; VT3 enables the battery divider | `tem_scan` → battery measurement |
 | `led_h3` (PB2 low) | — | — |
 
-In other words, the keyboard and the temperature sensor draw current only during their own time slot, and no extra MCU pins are needed to switch them.
+In other words, the keyboard and the temperature sensor draw current only during their own time slot, and no extra MCU pins are needed to switch them. They can also be powered at any other time, independently of the display, by driving PB0 (keyboard) or PB1 (temperature sensor) low. This idea goes back to revision 2.1 (see [Design history](DESIGN_HISTORY.md)).
 
 ### 2.4 Keyboard, battery sense and wake-up on one pin (PA2)
 
-**Keyboard.** The four buttons (S2–S5) pull a common node low through 10 k / 8.2 k / 6.8 k / 5.6 k (1 %). The switch common is grounded by VT1 whenever PB1 is high. During slot 1, R30 (10 kΩ 1 %) pulls the node up to VCC, so each button produces a ratiometric voltage. The firmware thresholds match the calculated divider ratios:
+**Keyboard.** The four buttons (S2–S5) pull a common node low through 10 k / 8.2 k / 6.8 k / 5.6 k (1 %). The switch common is grounded by VT1 whenever PB1 is high. During slot 1, R30 (10 kΩ 1 %) pulls the node up to VCC, and the ADC uses VCC as its reference. The result is therefore ratiometric and does not depend on the supply voltage. The firmware thresholds match the calculated divider ratios:
 
 | Button | Divider | Expected ADCH | Firmware threshold |
 |---|---|---|---|
@@ -75,6 +75,8 @@ In other words, the keyboard and the temperature sensor draw current only during
 | none | — | saturated | ≥ `0x95` |
 
 **Battery sense.** The keyboard node is also fed from +BAT through R36 (22 kΩ) and VT7, a BC817 connected as a diode. During slot 2, VT3 grounds the ENTER leg, forming the divider (V<sub>BAT</sub> − V<sub>BE</sub>) · R12 / (R36 + R12). This is measured against the internal 2.56 V reference. The firmware threshold `0x6D` (≈ 1.09 V) corresponds to V<sub>BAT</sub> ≈ 4.1 V.
+
+The original design notes call these two states the *passive* keyboard mode (PA2 works as INT1 and only detects that some key was pressed) and the *active* mode (PA2 works as ADC2 and identifies the key).
 
 **Wake-up.** In power-down mode all MCU pins are inputs, and R26 keeps VT1 on. The node is biased from the battery through R36 and VT7, so it draws no static current. Pressing any button pulls PA2 (INT1) low and wakes the MCU.
 
@@ -98,6 +100,8 @@ With the 2.56 V reference, the self-test classifies the reading as follows:
 | ≥ 221 | ≥ 2.2 V | Open circuit |
 
 During operation the alarm threshold is `100 + SEn`, so higher sensitivity triggers at a smaller drop in resistance. The very high resistor values keep the standby current through the sensor under 1 µA.
+
+The sensor has no galvanic isolation from the circuit and relies on the conductivity of the water. It works with ordinary tap water but will not detect distilled water or water purified by reverse osmosis. In revision 2.1 the sensor was purely digital (a level change on PB6 generating INT0); in the final design it moved to the ADC to add adjustable sensitivity and self-diagnostics.
 
 ### 2.7 Buzzer driver
 
