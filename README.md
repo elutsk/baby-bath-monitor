@@ -4,8 +4,6 @@ A small battery-powered device that watches the water in a baby bath: it measure
 
 I built it when my daughter was born and kept refining it for almost two years afterwards. It is a complete embedded project done end to end: my own schematic and PCB, a hand-assembled board, and firmware written entirely in **AVR assembly**.
 
-Designed in P-CAD 2006, the direct ancestor of Altium Designer, which is what I use now
-
 <p align="center">
   <img src="docs/images/device_top.jpg" width="45%" alt="Final device, top view">
   <img src="docs/images/prototype_front.jpg" width="45%" alt="Prototype board">
@@ -55,24 +53,6 @@ The firmware is about 5 000 lines of hand-written AVR assembly with no libraries
 
 The details are in the [technical documentation](docs/TECHNICAL.md).
 
-## Repository structure
-
-```
-├── firmware/
-│   ├── tempsens0.asm        AVR assembly source (UTF-8)
-│   ├── mem_map.inc          SRAM variable map
-│   └── tn861Adef.inc        ATtiny861A definitions (Atmel)
-├── hardware/
-│   ├── schematic.pdf        Schematic + BOM (PDF)
-│   ├── schematic.sch        P-CAD 2006 schematic
-│   └── pcb.pcb              P-CAD 2006 PCB layout
-└── docs/
-    ├── USER_MANUAL.md       User manual (English)
-    ├── TECHNICAL.md         Hardware and firmware documentation
-    ├── user_manual_ru.doc   Original user manual (Russian)
-    └── images/              Photos of the prototype and the final device
-```
-
 ## Building
 
 ```
@@ -86,8 +66,9 @@ The code also builds with the open-source AVRA after three small syntax tweaks. 
 
 | | |
 |---|---|
+| Nov 2011 | Rev. 2.1: ATtiny261A, diode-dropped battery supply, digital water sensor on INT0 |
 | Dec 2011 | Prototype on a development board (see `docs/images/prototype_*.jpg`) |
-| 2012 | Compact final PCB with a stacked two-cell holder; first user manual |
+| 2012 | Final design: ATtiny861A, 3.3 V LDO, analog water sensor with self-test, bridge buzzer driver; compact PCB with a stacked two-cell holder; first user manual |
 | Oct 2012 – Sep 2013 | Pre-alarm zone, alarm muting, on-device calibration, adjustable display timeout, alarm hold time |
 
 <p align="center">
@@ -98,6 +79,7 @@ The code also builds with the open-source AVRA after three small syntax tweaks. 
 
 - [User manual](docs/USER_MANUAL.md)
 - [Technical documentation](docs/TECHNICAL.md)
+- [Design history](docs/DESIGN_HISTORY.md)
 
 ## License
 
